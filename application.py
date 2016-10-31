@@ -16,7 +16,7 @@ class Park(db.Model):
     """Park class with initializer to document models"""
     __tablename__ = 'Parks'
 
-    idnum = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256))
     price = db.Column(db.Float)
     opentime = db.Column(db.Integer)
@@ -24,7 +24,7 @@ class Park(db.Model):
     website = db.Column(db.String(256))
     zipcode = db.Column(db.Integer)
 
-    # state_id_fk = db.Column(db.Integer, db.ForeignKey('States.idnum'))
+    state_id = db.Column(db.Integer, db.ForeignKey('States.id'))
 
     # events = db.relationship('Events', backref='Parks', lazy='dynamic')
     # campgrounds_rel = db.relationship(
@@ -50,7 +50,7 @@ class Event(db.Model):
     """Event class with initializer to document models"""
     __tablename__ = 'Events'
 
-    idnum = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256))
     category = db.Column(db.String(256))
     startDate = db.Column(db.String(256))  # may need to change
@@ -82,7 +82,7 @@ class State(db.Model):
     """State class with initializer to document models"""
     __tablename__ = 'States'
 
-    idnum = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256))
     highestPoint = db.Column(db.String(256))
     population = db.Column(db.Integer)
@@ -91,7 +91,7 @@ class State(db.Model):
 
     # campgrounds_rel = db.relationship(
     #     'Campgrounds', backref='States', lazy='dynamic')
-    # parks_rel = db.relationship('Parks', backref='States', lazy='dynamic')
+    parks = db.relationship('Parks', backref='States', lazy='dynamic')
     # events_rel = db.relationship(
     #     'Events', backref='States', lazy='dynamic')
 
@@ -112,7 +112,7 @@ class Campground(db.Model):
     """Campground class with initializer to document models"""
     __tablename__ = 'Campgrounds'
 
-    idnum = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256))
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
