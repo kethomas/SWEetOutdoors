@@ -18,7 +18,6 @@ class Park(db.Model):
     """Park class with initializer to document models"""
     __tablename__ = 'Parks'
 
-    __bind__key = 'parks'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256))
     price = db.Column(db.Float)
@@ -27,14 +26,14 @@ class Park(db.Model):
     website = db.Column(db.String(256))
     zipcode = db.Column(db.Integer)
 
-    state_id = db.Column(db.Integer, db.ForeignKey('States.id'))
+    state_id = db.Column(db.Integer, db.ForeignKey('States.id'), nullable=True)
 
     # events = db.relationship('Events', backref='Parks', lazy='dynamic')
     # campgrounds_rel = db.relationship(
     #     'Campgrounds', backref='Parks', lazy='dynamic')
 
     def __init__(self, name, price, opentime, closetime, website,
-                 zipcode, state_id_fk):
+                 zipcode, state_id):
 
         self.name = name
         self.price = price
@@ -42,7 +41,7 @@ class Park(db.Model):
         self.closetime = closetime
         self.website = website
         self.zipcode = zipcode
-        self.state_id_fk = state_id_fk
+	self.state_id = None
 
     def __repr__(self):
         return '<Park %r>' % self.name
@@ -62,7 +61,7 @@ class Event(db.Model):
     zipcode = db.Column(db.Integer)
 
     # park_id_fk = db.Column(db.Integer, db.ForeignKey('Parks.idnum'))
-    # state_id_fk = db.Column(db.Integer, db.ForeignKey('States.idnum'))
+    state_id = db.Column(db.Integer, db.ForeignKey('States.id'), nullable=True)
 
     def __init__(self, name, category, startDate, email, url, zipcode):#,
               #   park_id_fk, state_id_fk):
@@ -74,7 +73,7 @@ class Event(db.Model):
         self.url = url
         self.zipcode = zipcode
 #        self.park_id_fk = park_id_fk
-       # self.state_id_fk = state_id_fk
+	self.state_id = None
 
     def __repr__(self):
         return '<Event %r>' % self.name
@@ -92,11 +91,9 @@ class State(db.Model):
     description = db.Column(db.String(2048))
     total_area = db.Column(db.Float)
 
-    # campgrounds_rel = db.relationship(
-    #     'Campgrounds', backref='States', lazy='dynamic')
-    parks = db.relationship('Parks', backref='States', lazy='dynamic')
-    # events_rel = db.relationship(
-    #     'Events', backref='States', lazy='dynamic')
+    campgrounds = db.relationship('Campgrounds', backref='States', lazy='dynamic')
+    parks = db.relationship('Park', backref='State', lazy='dynamic')
+    events = db.relationship('Events', backref='States', lazy='dynamic')
 
     def __init__(self, name, highestPoint, population, description,
                  total_area):
@@ -105,6 +102,9 @@ class State(db.Model):
         self.population = population
         self.description = description
         self.total_area = total_area
+	self.parks = parks
+	self.events = events
+	self.campgrounds = campgrounds
 
     def __repr__(self):
         return '<State %r>' % self.name
@@ -125,7 +125,7 @@ class Campground(db.Model):
     pets = db.Column(db.Boolean)
 
     # park_id_fk = db.Column(db.Integer, db.ForeignKey('Parks.idnum'))
-    # state_id_fk = db.Column(db.Integer, db.ForeignKey('States.idnum'))
+    state_id = db.Column(db.Integer, db.ForeignKey('States.idnum'), nullable=True)
 
     def __init__(self, name, latitude, longitude, electricity, water,
                  sewer, pets):#, park_id_fk, state_id_fk):
@@ -137,7 +137,7 @@ class Campground(db.Model):
         self.sewer = sewer
         self.pets = pets
         #self.park_id_fk = park_id_fk
-        #self.state_id_fk = state_id_fk
+        self.state_id = None
 
     def __repr__(self):
         return '<Campgrounds %r>' % self.name
