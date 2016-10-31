@@ -39,7 +39,7 @@ class Park(db.Model):
         self.closetime = closetime
         self.website = website
         self.zipcode = zipcode
-        #self.state_id_fk = state_id_fk
+        self.state_id_fk = state_id_fk
 
     def __repr__(self):
         return '<Park %r>' % self.name
@@ -71,7 +71,7 @@ class Event(db.Model):
         self.url = url
         self.zipcode = zipcode
 #        self.park_id_fk = park_id_fk
-#        self.state_id_fk = state_id_fk
+       # self.state_id_fk = state_id_fk
 
     def __repr__(self):
         return '<Event %r>' % self.name
