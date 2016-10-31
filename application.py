@@ -4,10 +4,12 @@ Models page for website with each pillar and its attributes
 """
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://sweetOutdoors:wearefine@sweetoutdoorsdb.ckneyrny5ckj.us-west-2.rds.amazonaws.com:5432/sweetOutdoors'
 db = SQLAlchemy(app)
+migrate = Migrate(app,db)
 
 #pylint:disable=invalid-name, too-many-arguments, too-few-public-methods, too-many-instance-attributes
 
@@ -16,6 +18,7 @@ class Park(db.Model):
     """Park class with initializer to document models"""
     __tablename__ = 'Parks'
 
+    __bind__key = 'parks'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256))
     price = db.Column(db.Float)
@@ -31,7 +34,7 @@ class Park(db.Model):
     #     'Campgrounds', backref='Parks', lazy='dynamic')
 
     def __init__(self, name, price, opentime, closetime, website,
-                 zipcode):#, state_id_fk):
+                 zipcode, state_id_fk):
 
         self.name = name
         self.price = price
