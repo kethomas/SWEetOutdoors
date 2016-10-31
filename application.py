@@ -139,6 +139,6 @@ class Park(db.Model):
 #     def __repr__(self):
 #         return '<Campgrounds %r>' % self.name
 
-# if __name__ == '__main__':
-# 	application.debug = True
-# 	application.run()
+if __name__ == '__main__':
+	application.debug = True
+	application.run()
