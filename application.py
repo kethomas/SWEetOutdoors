@@ -102,9 +102,9 @@ class State(db.Model):
         self.population = population
         self.description = description
         self.total_area = total_area
-	self.parks = parks
-	self.events = events
-	self.campgrounds = campgrounds
+        self.parks = parks
+        self.events = events
+        self.campgrounds = campgrounds
 
     def __repr__(self):
         return '<State %r>' % self.name
