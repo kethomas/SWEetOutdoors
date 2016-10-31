@@ -70,8 +70,8 @@ class Event(db.Model):
         self.email = email
         self.url = url
         self.zipcode = zipcode
-        self.park_id_fk = park_id_fk
-        self.state_id_fk = state_id_fk
+#        self.park_id_fk = park_id_fk
+#        self.state_id_fk = state_id_fk
 
     def __repr__(self):
         return '<Event %r>' % self.name
@@ -133,8 +133,8 @@ class Campground(db.Model):
         self.water = water
         self.sewer = sewer
         self.pets = pets
-        self.park_id_fk = park_id_fk
-        self.state_id_fk = state_id_fk
+        #self.park_id_fk = park_id_fk
+        #self.state_id_fk = state_id_fk
 
     def __repr__(self):
         return '<Campgrounds %r>' % self.name
