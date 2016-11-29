@@ -46,7 +46,7 @@
             <li><a href="{{ url_for('states') }}">States</a></li>
             <li><a href="{{ url_for('events') }}">Events</a></li> 
             <li><a href="{{ url_for('about') }}">About</a></li>
-            <form class="navbar-form navbar-right" action="{{url_for('orSearch')}}" onsubmit="{{url_for('orSearch')}}" role="search">
+            <form class="navbar-form navbar-right" action="{{url_for('search')}}" onsubmit="{{url_for('search')}}" role="search">
               <div class="input-group">
                 <input id="search_term" type="text" class="form-control" name="search" placeholder="Search for...">
                 <span class="input-group-btn">
@@ -66,7 +66,7 @@
 
     <ul id="search_results" class="list-unstyled" style="list-style-type:none">
     
-      {% if (parksorlist|length + parksandlist|length) > 0 %}
+      {% if (parks_or_list|length + parksandlist|length) > 0 %}
         <div class="title">
           <h2>Parks</h2>
         </div> <!-- end of title -->
@@ -94,7 +94,7 @@
           <br/>      
         {% endfor %}  
 
-        {% for park in parksorlist %}
+        {% for park in parks_or_list %}
           <li>
             <div class="row">
               <h3>OR</h3>
@@ -120,7 +120,7 @@
 
 <!-- ********************************************************************** -->
 
-      {% if (statesorlist|length + statesandlist|length) > 0 %}
+      {% if (states_or_list|length + statesandlist|length) > 0 %}
         <div class="title">
           <h2>States</h2>
         </div> <!-- end of title -->
@@ -143,7 +143,7 @@
           <br/>
         {% endfor %}
 
-        {% for state in statesorlist %}
+        {% for state in states_or_list %}
           <li>
             <div class="row">
               <h3>OR</h3>
@@ -164,7 +164,7 @@
 
 <!-- ********************************************************************** -->
 
-      {% if (eventsorlist|length + eventsandlist|length) > 0 %}
+      {% if (events_or_list|length + eventsandlist|length) > 0 %}
         <div class="title">
           <h2>Events</h2>
         </div> <!-- end of title -->
@@ -190,7 +190,7 @@
           <br/>
         {% endfor %}
 
-        {% for event in eventsorlist %}
+        {% for event in events_or_list %}
           <li>
             <div class="row">
               <h3>OR</h3>
@@ -214,7 +214,7 @@
 
 <!-- ********************************************************************** -->
 
-      {% if (campgroundsorlist|length + campgroundsandlist|length) > 0 %}
+      {% if (campgrounds_or_list|length + campgroundsandlist|length) > 0 %}
         <div class="title">
           <h2>Campgrounds</h2>
         </div> <!-- end of title -->
@@ -238,7 +238,7 @@
           <br/>  
         {% endfor %}
 
-        {% for campground in campgroundsorlist %}
+        {% for campground in campgrounds_or_list %}
           <li>
           <div class="row">
             <h3>OR</h3>

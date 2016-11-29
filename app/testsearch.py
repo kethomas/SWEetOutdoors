@@ -25,10 +25,10 @@ def func(search):
     # create a list so Big Bend -> [ Big , Bend]
     descriptivename = search.split()
 
-    eventsorlist = set()
-    statesorlist = set()
-    campgroundsorlist = set()
-    parksorlist = set()
+    events_or_list = set()
+    states_or_list = set()
+    campgrounds_or_list = set()
+    parks_or_list = set()
     orlist = []
 
     for search in descriptivename:
@@ -37,30 +37,30 @@ def func(search):
                                                      Park.zipcode.like('%' + search + '%'), Park.photo_url.like('%' + search + '%'), Park.zipregion.like('%' + search + '%'), Park.state_fk.like('%' + search + '%'))).all()
 
         for v in park_search_instance:
-            parksorlist.add(v)
+            parks_or_list.add(v)
 
         event_search_instance = Event.query.filter(or_(Event.latitude.like('%' + search + '%'), Event.longitude.like('%' + search + '%'), Event.topics.like('%' + search + '%'), Event.start_date.like('%' + search + '%'), Event.end_date.like('%' + search + '%'), Event.pic_url.like('%' + search + '%'),
                                                        Event.org_name.like('%' + search + '%'), Event.contact_phone_num.like('%' + search + '%'), Event.zipregion.like('%' + search + '%'), Event.zipcode.like('%' + search + '%'))).all()
 
         for v in event_search_instance:
-            eventsorlist.add(v)
+            events_or_list.add(v)
 
         state_search_instance = State.query.filter(or_(State.name.like(search), State.description.like('%' + search + '%'), State.total_area.like(
             '%' + search + '%'), State.population.like('%' + search + '%'), State.highest_point.like('%' + search + '%'))).all()
         for v in state_search_instance:
-            statesorlist.add(v)
+            states_or_list.add(v)
 
         campground_search_instance = Campground.query.filter(or_(Campground.name.like('%' + search + '%'), Campground.description.like('%' + search + '%'), Campground.latitude.like('%' + search + '%'), Campground.longitude.like('%' + search + '%'), Campground.direction.like('%' + search + '%'),
                                                                  Campground.phone.like('%' + search + '%'), Campground.email.like('%' + search + '%'), Campground.zipcode.like('%' + search + '%'))).all()
 
         for v in campground_search_instance:
-            campgroundsorlist.add(v)
+            campgrounds_or_list.add(v)
 
     print("before the or code")
-    print parksorlist
-    print eventsorlist
-    print statesorlist
-    print campgroundsorlist
+    print parks_or_list
+    print events_or_list
+    print states_or_list
+    print campgrounds_or_list
 
 
 func("Texas camp park running")
