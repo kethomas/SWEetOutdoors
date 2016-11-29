@@ -66,12 +66,12 @@
 
     <ul id="search_results" class="list-unstyled" style="list-style-type:none">
     
-      {% if (parks_or_list|length + parksandlist|length) > 0 %}
+      {% if (parks_or_list|length + parks_and_list|length) > 0 %}
         <div class="title">
           <h2>Parks</h2>
         </div> <!-- end of title -->
 
-        {% for park in parksandlist %}
+        {% for park in parks_and_list %}
           <li>
             <div class="row">
               <h3>AND</h3>
@@ -120,12 +120,12 @@
 
 <!-- ********************************************************************** -->
 
-      {% if (states_or_list|length + statesandlist|length) > 0 %}
+      {% if (states_or_list|length + states_and_list|length) > 0 %}
         <div class="title">
           <h2>States</h2>
         </div> <!-- end of title -->
 
-        {% for state in statesandlist %}
+        {% for state in states_and_list %}
           <li>
             <div class="row">
               <h3>AND</h3>
@@ -164,12 +164,12 @@
 
 <!-- ********************************************************************** -->
 
-      {% if (events_or_list|length + eventsandlist|length) > 0 %}
+      {% if (events_or_list|length + events_and_list|length) > 0 %}
         <div class="title">
           <h2>Events</h2>
         </div> <!-- end of title -->
 
-        {% for event in eventsandlist %}
+        {% for event in events_and_list %}
           <li>
             <div class="row">
               <h3>AND</h3>
@@ -214,12 +214,12 @@
 
 <!-- ********************************************************************** -->
 
-      {% if (campgrounds_or_list|length + campgroundsandlist|length) > 0 %}
+      {% if (campgrounds_or_list|length + campgrounds_and_list|length) > 0 %}
         <div class="title">
           <h2>Campgrounds</h2>
         </div> <!-- end of title -->
 
-        {% for campground in campgroundsandlist %}
+        {% for campground in campgrounds_and_list %}
           <li>
           <div class="row">
             <h3>AND</h3>
