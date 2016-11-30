@@ -383,7 +383,7 @@ def search():
                 campgrounds_dict[v] += 1
             else:
                 campgrounds_dict[v] = 1
-
+    print("time to and")
     parks_and_list = set()
     for key in parks_dict:
         if parks_dict[key] >= len(descriptivename):
@@ -403,7 +403,7 @@ def search():
     for key in campgrounds_dict:
         if campgrounds_dict[key] >= len(descriptivename):
             campgrounds_and_list.add(key)
-
+    print("render template")
     return render_template('Search.html', 
                             parks_or_list=parks_or_list,  
                             events_or_list=events_or_list, 
