@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
@@ -10,6 +11,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Merriweather:900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/style/visualization.css" media="screen">
   </head>
   
   <body>
@@ -48,6 +50,50 @@
       <div class="title">
         <h1 id="title1">SWEatshop</h1>
       </div> 
+      <div id="tooltip"></div><!-- div to hold tooltip. -->
+      <svg width="960" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
+      <script src="/static/js/uStates.js"></script> <!-- creates uStates. -->
+      <script src="http://d3js.org/d3.v3.min.js"></script>
+      <script>
+
+        function tooltipHtml(n, d){ /* function to create html content string in tooltip div. */
+          return "<h4>"+n+"</h4><table>"+
+            "<tr><td>Name</td><td>"+(d.name)+"</td></tr>"+
+            "<tr><td>Capital</td><td>"+(d.capital)+"</td></tr>"+
+            "<tr><td>Candidates</td><td>"+(d.candidates)+"</td></tr>"+
+            "<tr><td>Governor</td><td>"+(d.governor)+"</td></tr>"+
+            "<tr><td>Population</td><td>"+(d.population)+"</td></tr>"+
+            "</table>";
+        }
+
+        
+
+        
+        var dict = {{ state_dict|tojson|safe }}
+        var sampleData ={}; /* Sample random data. */ 
+        ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
+        "ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH", 
+        "MI", "WY", "MT", "ID", "WA", "TX", "CA", "AZ", "NV", "UT", 
+        "CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN", 
+        "WI", "MO", "AR", "OK", "KS", "LA", "VA"]
+          .forEach(function(d){ 
+            sampleData[d]={color:d3.interpolate("#ffffcc", "#800026")((dict[d]['candidates'])/20),
+                           name: dict[d]['name'],
+                           candidates: dict[d]['candidates'],
+                           governor: dict[d]['governor'],
+                           capital: dict[d]['capital'],
+                           population: dict[d]['population']
+                          }; 
+            if (sampleData[d]['color'] == '#000000')
+            {
+              sampleData[d]['color'] = d3.interpolate("#ffffcc", "#800026")(1);
+            }
+          });
+        /* draw states on id #statesvg */ 
+        uStates.draw("#statesvg", sampleData, tooltipHtml);
+        
+        d3.select(self.frameElement).style("height", "600px"); 
+      </script>
      <!--  <p>It looks like Partypeople.me is down.</p> -->
     </div>
   </body>

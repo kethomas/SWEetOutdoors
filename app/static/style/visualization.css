@@ -1,0 +1,154 @@
+/* 
+  ------------------------
+  GENERAL 
+  ------------------------
+*/
+
+html, body {
+  	height: 100%;
+  	padding: 0;
+  	margin: auto;
+  	overflow: auto;
+ }   
+
+.row {
+	margin-right: 0;
+	margin-left: 0;
+}
+
+#details {
+	height: 100%;
+	margin-right: auto;
+ 	background-size: cover;
+}
+
+p {
+	word-wrap: break-word;
+}
+
+iframe {
+	width: 100%
+}
+
+.card {
+	background-color: darkgrey;
+	opacity: .9;
+}
+
+li.list-group-item {
+	background-color: darkgrey;
+	opacity: .9;
+}
+/* 
+  ------------------------
+  TITLE AND NAV BAR 
+  ------------------------
+*/
+
+.title h1 {
+	margin-top: 1em;
+	font-size: 3em;
+	margin-bottom: .5em;
+}
+
+.title h1 span {
+	background-color: darkgrey;
+	opacity: .9;
+}
+
+button.btn.btn-default {
+	height: 34px;
+}
+/* 
+  ------------------------
+  PARK INFO 
+  ------------------------
+*/
+
+.img-fluid {
+	display: block;
+	margin-top: 1em;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 75%;
+	height: auto;
+}
+
+h4 {
+	text-align: center;
+}
+
+.card {
+	margin-top: 1em;
+	margin-bottom: 2.5em;
+}
+
+.card-link a {
+	margin-left: auto;
+	margin-right: auto;	
+
+}
+
+.col-md-4,.card-link {
+	text-align: center;
+}
+
+.list-group-item {
+	font-size: 15px;
+}
+
+/* 
+	visualization info
+*/
+
+svg {
+	display: block;
+	margin: auto;
+}
+
+.state{
+	fill: none;
+	stroke: #a9a9a9;
+	stroke-width: 1;
+}
+.state:hover{
+	fill-opacity:0.5;
+}
+#tooltip {   
+	position: absolute;           
+	text-align: center;
+	padding: 20px;             
+	margin: 10px;
+	font: 12px sans-serif;        
+	background: lightsteelblue;   
+	border: 1px;      
+	border-radius: 2px;           
+	pointer-events: none;         
+}
+#tooltip h4{
+	margin:0;
+	font-size:14px;
+}
+#tooltip{
+	background:rgba(0,0,0,0.9);
+	border:1px solid grey;
+	border-radius:5px;
+	font-size:12px;
+	width:auto;
+	padding:4px;
+	color:white;
+	opacity:0;
+}
+#tooltip table{
+	table-layout:fixed;
+}
+#tooltip tr td{
+	padding:0;
+	margin:0;
+}
+#tooltip tr td:nth-child(1){
+	width:50px;
+}
+#tooltip tr td:nth-child(2){
+	text-align:center;
+}

@@ -437,7 +437,7 @@ def visualization():
 
         state_dict[state['abbrev']] = state_info
 
-    return render_template('visualization.html', state_dict)
+    return render_template('visualization.html', state_dict = state_dict)
 
 if __name__ == '__main__':
     """
