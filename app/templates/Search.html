@@ -16,15 +16,20 @@
     <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300" rel="stylesheet">    
 
     <!-- basic js files -->
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- js files for table sorting and pagination-->
+    <!-- js files for table sorting-->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-    <script type="text/javascript" src="../static/js/jquery.quick.pagination.js"></script>
+    
+    <!-- pagination -->
+    <!--<script type="text/javascript" src="../static/js/jquery.quick.pagination.js"></script>-->
+    
     <!-- css for table pagination -->
-    <script rel="stylesheet" type="text/css" href="https://github.com/sdeering/jquery-quick-pagination/blob/master/css/styles.css"></script>
+    <!--<script rel="stylesheet" type="text/css" href="https://github.com/sdeering/jquery-quick-pagination/blob/master/css/styles.css"></script>-->
+
+    <script type="text/javascript" src="../static/js/jquery.simplePagination.js"></script>
+    <link type="text/css" rel="stylesheet" href="../static/style/simplePagination.css"/>
   </head>
 
   <body>
@@ -64,10 +69,10 @@
       <p> 
     </div> <!-- end of title -->    
 
-    <ul id="search_results" class="list-unstyled" style="list-style-type:none">
+    <ul id="search_results" class="paginate" style="list-style-type:none">
     
       {% if (parks_or_list|length + parks_and_list|length) > 0 %}
-        <div class="title">
+        <div class="title" id="parksTitle">
           <h2>Parks</h2>
         </div> <!-- end of title -->
 
@@ -82,7 +87,7 @@
                 <p><b>Longitude: </b>{{park.longitude}}</p>  
                 <p><b>Address: </b>{{park.address}}</p>
                 <p><b>Phone: </b>{{park.phone}}</p> 
-                <p><b>Rating: </b>{{park.rating}}</p>                 
+                <p><b>Rating: </b>{{park.rating}}</p>            
                 <p><b>Website: </b><a href= "{{park.website}}">Go to website</a></p>
                 <p><b>Zipcode: </b>{{park.zipcode}}</p>  
                 <p><b>Photo URL: </b><a href="{{park.photo_url}}"> Click for photo</a></p>        
@@ -90,8 +95,8 @@
                 <p><b>State: </b>{{park.state_fk}}</p> 
               </div> 
             </div> <!-- end of row -->
-          </li>
-          <br/>      
+          <br/> 
+          </li>     
         {% endfor %}  
 
         {% for park in parks_or_list %}
@@ -113,15 +118,15 @@
                 <p><b>State: </b>{{park.state_fk}}</p> 
               </div> 
             </div> 
-          </li>
-          <br/>      
+          <br/>  
+          </li>    
         {% endfor %}
       {% endif %}
 
 <!-- ********************************************************************** -->
 
       {% if (states_or_list|length + states_and_list|length) > 0 %}
-        <div class="title">
+        <div class="title" id="statesTitle">
           <h2>States</h2>
         </div> <!-- end of title -->
 
@@ -139,8 +144,8 @@
                 <p><b>Explore An Event: </b><a href="{{ url_for('event_instance', idnum = state.events_rel.first().idnum) }}"> {{state.events_rel.first().org_name}} </a></p>
               </div>
             </div>
-          </li>
           <br/>
+          </li>
         {% endfor %}
 
         {% for state in states_or_list %}
@@ -157,15 +162,15 @@
                 <p><b>Explore An Event: </b><a href="{{ url_for('event_instance', idnum = state.events_rel.first().idnum) }}"> {{state.events_rel.first().org_name}} </a></p>
               </div>
             </div>
-          </li>
           <br/>
+          </li>
         {% endfor %}
       {% endif %}
 
 <!-- ********************************************************************** -->
 
       {% if (events_or_list|length + events_and_list|length) > 0 %}
-        <div class="title">
+        <div class="title" id="eventsTitle">
           <h2>Events</h2>
         </div> <!-- end of title -->
 
@@ -186,8 +191,8 @@
                 <p><b>State: </b><a href="{{ url_for('state_instance', name=event.state_fk)}}">{{event.state_fk}}</a></p>
               </div>
             </div>
-          </li>
           <br/>
+          </li>
         {% endfor %}
 
         {% for event in events_or_list %}
@@ -207,69 +212,99 @@
                 <p><b>State: </b><a href="{{ url_for('state_instance', name=event.state_fk)}}">{{event.state_fk}}</a></p>
               </div>
             </div>
-          </li>
           <br/>
+          </li>
         {% endfor %}
       {% endif %}
 
 <!-- ********************************************************************** -->
 
       {% if (campgrounds_or_list|length + campgrounds_and_list|length) > 0 %}
-        <div class="title">
+        <div class="title" id="campgroundsTitle">
           <h2>Campgrounds</h2>
         </div> <!-- end of title -->
 
         {% for campground in campgrounds_and_list %}
           <li>
-          <div class="row">
-            <h3>AND</h3>
-            <div class="col-md-1"></div>  
-            <div class="col-md-10">
-              <p><b>Campground: </b><a href="{{ url_for('campground_instance', idnum = campground.idnum) }}">{{campground.name}}</a></p>
-              <p><b>Phone: </b>{{campground.phone}}</p>
-              <p><b>Nearby Park: </b><a href="{{ url_for('park_instance', idnum = campground.Park.idnum) }}">{{campground.Park.name}}</a></p>
-              <p><b>Latitude: </b>{{campground.latitude}}</p>
-              <p><b>Longitude: </b>{{campground.longitude}}</p>
-              <p><b>Zipcode: </b>{{campground.zipcode}}</p>
-              <p><b>State: </b> <a href="{{ url_for('state_instance', name = campground.state_fk) }}">{{campground.state_fk}}</a></p>    
+            <div class="row">
+              <h3>AND</h3>
+              <div class="col-md-1"></div>  
+              <div class="col-md-10">
+                <p><b>Campground: </b><a href="{{ url_for('campground_instance', idnum = campground.idnum) }}">{{campground.name}}</a></p>
+                <p><b>Phone: </b>{{campground.phone}}</p>
+                <p><b>Nearby Park: </b><a href="{{ url_for('park_instance', idnum = campground.Park.idnum) }}">{{campground.Park.name}}</a></p>
+                <p><b>Latitude: </b>{{campground.latitude}}</p>
+                <p><b>Longitude: </b>{{campground.longitude}}</p>
+                <p><b>Zipcode: </b>{{campground.zipcode}}</p>
+                <p><b>State: </b> <a href="{{ url_for('state_instance', name = campground.state_fk) }}">{{campground.state_fk}}</a></p>    
+              </div>
             </div>
-          </div>
-          </li>
           <br/>  
+          </li>
         {% endfor %}
 
         {% for campground in campgrounds_or_list %}
           <li>
-          <div class="row">
-            <h3>OR</h3>
-            <div class="col-md-1"></div>  
-            <div class="col-md-10">
-              <p><b>Campground: </b><a href="{{ url_for('campground_instance', idnum = campground.idnum) }}">{{campground.name}}</a></p>
-              <p><b>Phone: </b>{{campground.phone}}</p>
-              <p><b>Nearby Park: </b><a href="{{ url_for('park_instance', idnum = campground.Park.idnum) }}">{{campground.Park.name}}</a></p>
-              <p><b>Latitude: </b>{{campground.latitude}}</p>
-              <p><b>Longitude: </b>{{campground.longitude}}</p>
-              <p><b>Zipcode: </b>{{campground.zipcode}}</p>
-              <p><b>State: </b> <a href="{{ url_for('state_instance', name = campground.state_fk) }}">{{campground.state_fk}}</a></p>    
+            <div class="row">
+              <h3>OR</h3>
+              <div class="col-md-1"></div>  
+              <div class="col-md-10">
+                <p><b>Campground: </b><a href="{{ url_for('campground_instance', idnum = campground.idnum) }}">{{campground.name}}</a></p>
+                <p><b>Phone: </b>{{campground.phone}}</p>
+                <p><b>Nearby Park: </b><a href="{{ url_for('park_instance', idnum = campground.Park.idnum) }}">{{campground.Park.name}}</a></p>
+                <p><b>Latitude: </b>{{campground.latitude}}</p>
+                <p><b>Longitude: </b>{{campground.longitude}}</p>
+                <p><b>Zipcode: </b>{{campground.zipcode}}</p>
+                <p><b>State: </b> <a href="{{ url_for('state_instance', name = campground.state_fk) }}">{{campground.state_fk}}</a></p>    
+              </div>
             </div>
-          </div>
-          </li>
           <br/>  
+          </li>
         {% endfor %}
       {% endif %}
     </ul>
+    <div id="page-nav"></div>
 
     <script type="text/javascript">
      $(document).ready(function(){
+        console.log("start marking");
         var search = "{{search}}";
         for (value of search.split(" "))
         {
          var re = new RegExp('(' + value + ')', 'ig');
          $('#search_results').html( $('#search_results').html().replace(re, "<mark>$1</mark>"));
-        }      
-      });
+        }
 
-      $("ul.list-unstyled").quickPager(pageSize=10);
+        // pagination
+        var items = $("#search_results li");
+        var ul = document.getElementById("search_results");
+        var eachItem = ul.getElementsByTagName("li");
+
+        var numItems = items.length;
+        var perPage = 10;
+
+        items.slice(perPage).hide();
+
+        $('#page-nav').pagination({
+          items: numItems,
+          itemsOnPage: perPage,
+          cssStyle: "light-theme",
+          onPageClick: function(pageNumber) { 
+            var showFrom = perPage * (pageNumber - 1);
+            var showTo = showFrom + perPage;
+            console.log(eachItem[showFrom]);
+            var listItem = $('li').first();
+            var siblings = listItem.siblings().next();
+            console.log(siblings);
+            console.log(siblings[0]);
+            // var liChildren = eachItem[showFrom].children();
+            // console.log(liChildren[0]);
+            // console.log(eachItem[showFrom]);
+            items.hide()
+            .slice(showFrom, showTo).show();
+          }
+        });
+      });
     </script>
   </body>
 </html>
