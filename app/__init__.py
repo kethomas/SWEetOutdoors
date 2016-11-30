@@ -415,19 +415,29 @@ def search():
                             campgrounds_and_list=campgrounds_and_list, 
                             search=search_param)
 
-    #print("before the or code")
-    # print parks_or_list
-    # print events_or_list
-    # print states_or_list
-    # print campgrounds_or_list
-
 
 @application.route('/visualization')
 def visualization():
     """
     route to the visualization page for PartyPeople's API
     """
-    return render_template('visualization.html')
+
+    states = requests.get('http://partypeople.me/api/states').json()
+
+    state_dict = dict()
+
+    for state in states['objects']:
+
+        state_info = dict()
+        state_info['name'] = state['name']
+        state_info['candidates'] = len(state['candidate'])
+        state_info['governor'] = state['governor']
+        state_info['capital'] = state['capital']
+        state_info['population'] = state['population']
+
+        state_dict[state['abbrev']] = state_info
+
+    return render_template('visualization.html', state_dict)
 
 if __name__ == '__main__':
     """
